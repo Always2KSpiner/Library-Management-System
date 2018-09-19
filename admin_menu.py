@@ -32,11 +32,11 @@ def remove_customer():
     db_admin.remove_Customer(c_id)
     
 def all_customers():
-    sql="select * from customers"
+    sql="select * from customers order by customer_id"
     cur.execute(sql)
     data=cur.fetchall()
     for line in data:
-        print("ID:",line[0],"FNAME:",line[1],"LNAME:",line[2],"ADDRESS:",line[3],"PASSWORD:",line[4])
+        print("ID:",line[0],"FNAME:",line[1],"LNAME:",line[2],"ADDRESS:",line[3],"PASSWORD: ******")
     con.commit
     
 def check_history():

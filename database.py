@@ -51,7 +51,7 @@ def sign_up_customer(customer):
     lname = customer.get_last_name()
     address=customer.get_address()
     password = customer.get_password()
-    sql = "select customer_id_sequence.nextval from dual"
+    sql = "select cust_id.nextval from dual"
     cur.execute(sql)
     res = cur.fetchall()
     c_id = res[0][0]
@@ -80,7 +80,7 @@ def issuebook(c_id):
     cur.execute(sql,{"id":b_id})
     data=cur.fetchall()
     for line in data:
-        print(line[0],line[1],line[2],line[3],line[4],line[5])
+        print("TITLE:",line[0],"AUTHOR:",line[1],"PUBLISHER:",line[2],"YEAR",line[3],"BOOK ID:",line[4],"STATUS:",line[5])
     cur.execute("""insert into issuehistory values(:bid,:cid,:stat,:bdate)""",{'bid':b_id,'cid':c_id,'stat':"Issued",'bdate':now})
     con.commit
     print("BOOK ISSUED\n")
@@ -94,7 +94,7 @@ def returnbook(c_id):
     cur.execute(sql,{"id":b_id})
     data=cur.fetchall()
     for line in data:
-        print(line[0],line[1],line[2],line[3],line[4],line[5])
+        print("TITLE:",line[0],"AUTHOR:",line[1],"PUBLISHER:",line[2],"YEAR",line[3],"BOOK ID:",line[4],"STATUS:",line[5])
     cur.execute("""insert into issuehistory values(:bid,:cid,:stat,:bdate)""",{'bid':b_id,'cid':c_id,'stat':"Returned",'bdate':now})    
     con.commit
     print("BOOK RETURNED\n")
@@ -104,14 +104,14 @@ def issued_books(c_id):
     cur.execute(sql,{"c_id":c_id})
     data=cur.fetchall()
     for line in data:
-        print(line[0],line[1],line[2],line[3]) 
+        print("BOOK ID:",line[0],"TITLE:",line[1],"STATUS:",line[2],"DATE:",line[3]) 
     con.commit
 def avail_book():
     sql="select * from book where status='Available'"
     cur.execute(sql)
     data=cur.fetchall()
     for line in data:
-        print(line[0],line[1],line[2],line[3],line[4],line[5])
+        print("TITLE:",line[0],"AUTHOR:",line[1],"PUBLISHER:",line[2],"YEAR:",line[3],"BOOK ID:",line[4],"STATUS:",line[5])
     con.commit
 
 def all_books():
@@ -119,7 +119,7 @@ def all_books():
     cur.execute(sql)
     data=cur.fetchall()
     for line in data:
-        print(line[0],line[1],line[2],line[3],line[4],line[5])
+        print("TITLE:",line[0],"AUTHOR:",line[1],"PUBLISHER:",line[2],"YEAR:",line[3],"BOOK ID:",line[4],"STATUS:",line[5])
     con.commit
 
 def check_book_exists(id):
